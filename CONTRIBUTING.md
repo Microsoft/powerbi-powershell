@@ -9,7 +9,7 @@
 * [Visual Studio Code](https://code.visualstudio.com/download)
     * Experimental and optional, still need Visual Studio installed
     * Install the following extensions:
-        * [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp): `code --install-extension ms-vscode.csharp`
+        * [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp): `code --install-extension ms-dotnettools.csharp`
         * [PowerShell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell): `code --install-extension ms-vscode.PowerShell`
 
 
