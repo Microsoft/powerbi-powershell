@@ -134,16 +134,28 @@ namespace Microsoft.PowerBI.Commands.Profile
                             response = await client.GetAsync(url);
                             break;
                         case PowerBIWebRequestMethod.Post:
-                            response = await client.PostAsync(url, new StringContent(body, Encoding.UTF8, this.ContentType));
+                            // Don't pass Content-Type header as mediaType arg in StringContent as this goes through
+                            // MediaTypeHeaderValue which fails to validate boundary specifications for multipart/form types
+                            HttpContent content = new StringContent(body, Encoding.UTF8);
+                            content.Headers.Add("Content-Type", this.ContentType);
+                            response = await client.PostAsync(url, content);
                             break;
                         case PowerBIWebRequestMethod.Delete:
                             response = await client.DeleteAsync(url);
                             break;
                         case PowerBIWebRequestMethod.Put:
-                            response = await client.PutAsync(url, new StringContent(body, Encoding.UTF8, this.ContentType));
+                            // Don't pass Content-Type header as mediaType arg in StringContent as this goes through
+                            // MediaTypeHeaderValue which fails to validate boundary specifications for multipart/form types
+                            HttpContent content = new StringContent(body, Encoding.UTF8);
+                            content.Headers.Add("Content-Type", this.ContentType);
+                            response = await client.PutAsync(url, content);
                             break;
                         case PowerBIWebRequestMethod.Patch:
-                            response = await client.PatchAsync(url, new StringContent(body, Encoding.UTF8, this.ContentType));
+                            // Don't pass Content-Type header as mediaType arg in StringContent as this goes through
+                            // MediaTypeHeaderValue which fails to validate boundary specifications for multipart/form types
+                            HttpContent content = new StringContent(body, Encoding.UTF8);
+                            content.Headers.Add("Content-Type", this.ContentType);
+                            response = await client.PatchAsync(url, content);
                             break;
                         case PowerBIWebRequestMethod.Options:
                             response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Options, url));
