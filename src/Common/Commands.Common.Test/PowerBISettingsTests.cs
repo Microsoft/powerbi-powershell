@@ -111,11 +111,14 @@ namespace Microsoft.PowerBI.Commands.Common.Test
         {
             var cloudEnvironment = cloudEnvironments.Environments.FirstOrDefault(c => c.CloudName.Equals(cloudName, StringComparison.OrdinalIgnoreCase));
             var backendService = cloudEnvironment.Services.First(s => s.Name.Equals("powerbi-backend", StringComparison.OrdinalIgnoreCase));
+            var redirectApp = cloudEnvironment.Clients.First(s => s.Name.Equals("powerbi-gateway", StringComparison.OrdinalIgnoreCase));
 
             Assert.AreEqual(cloudEnvironment.Services.First(s => s.Name.Equals("aad", StringComparison.OrdinalIgnoreCase)).Endpoint, environment.AzureADAuthority);
             AssertValidEnvironmentSharedProperties(environment);
             Assert.AreEqual(backendService.ResourceId, environment.AzureADResource);
             Assert.AreEqual(backendService.Endpoint, environment.GlobalServiceEndpoint);
+            Assert.AreEqual(redirectApp.AppId, environment.AzureADClientId);
+            Assert.AreEqual(redirectApp.RedirectUri, environment.AzureADRedirectAddress);
         }
 
         private static void AssertValidEnvironmentSharedProperties(IPowerBIEnvironment environment)
